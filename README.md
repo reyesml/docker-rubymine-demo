@@ -79,3 +79,23 @@ Once the Remote SDK has been configured, you should notice that a `app/Gemfile.l
 
 
 
+
+
+
+## Running and Debugging the App
+
+Now that we've configured docker-compose as our remote SDK, we should be able to run our app from the IDE.  Open the `app/hello_world.rb` file in the RubyMine editor.  Right-click anywhere in that file, and select "run":
+
+![Image showing hello_world.rb open with the "run" dialog option selected](images/running_app_01.jpg)
+
+You should receive output similar to the screenshot below.
+
+
+![Image with the following text: "Hello, world. <br> 2022-09-10T23:48:26+00:00 <br> 2.7.6](images/running_app_02.jpg)
+
+Notice the Ruby version in the screeshot above.  It should match the version specified in the`app/Dockerfile`.  If it doesn't match (or the app doesn't run), double-check that the remote sdk is selected within the "Ruby SDK and Gems" preferences.
+
+You should also be able to set a breakpoint and debug your app using the Remote SDK.  Again, the RUBY_VERSION in the debugging output should match the version specified in our `app/Dockerfile`:
+
+![Image demonstrating RubyMine debugging hello_world.rb within a docker container](images/debugging_app_01.jpg)
+
