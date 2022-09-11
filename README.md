@@ -99,3 +99,55 @@ You should also be able to set a breakpoint and debug your app using the Remote 
 
 ![Image demonstrating RubyMine debugging hello_world.rb within a docker container](images/debugging_app_01.jpg)
 
+
+## Adding Tests
+
+Let's setup [rspec](https://rspec.info/) to our project.  First, we need to add `gem 'rspec'` to our `app/Gemfile` :
+
+```ruby
+source "https://rubygems.org"
+
+ruby "2.7.6"
+
+# Gems required for debugging
+gem 'debase'
+gem 'ruby-debug-ide'
+
+gem 'rspec'
+```
+
+Next, we'll run `bundle install` against our remote SDK.  To do this, open the Gemfile in RubyMine, hover over the rspec gem, and select "Execute 'bundle install' in running container and rebuild Docker Image":
+
+![Image demonstrating how to run bundle install against the remote SDK](images/adding_tests_01.jpg)
+
+_Note: Running `bundle install` via different means may not install the gems in the container referenced by the Remote SDK.  This results in a loss of intellisense for newly added gems._
+
+Once the bundle install has finished, open a terminal in the root of the project, then run:
+
+`docker compose run --rm app rspec --init`
+
+You should see new `app/.rspec` and `app/spec/spec_helper.rb` files added to the repository.
+
+Next, let's add a simple test:
+
+`app/rspec/hello_world_spec.rb`:
+```ruby
+require_relative '../hello_world'
+
+RSpec.describe "hello" do
+  it "can run the tests" do
+    hello
+    expect(true).to eq true
+  end
+end
+```
+
+If you open `app/rspec/hello_world_spec.rb` in rubymine, you should be able to run and debug the application using the gutters of the test file:
+
+![Image showing the "Run" buttons in the gutter of hello_world_spec.rb](images/adding_tests_02.jpg)
+
+![Image demonstrating a debug run of hello_world_spec.rb](images/adding_tests_03.jpg)
+
+Notice again how the ruby version matches the version specified in our Dockerfile.
+
+
