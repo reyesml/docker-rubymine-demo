@@ -66,3 +66,16 @@ services:
 ```
 
 
+## Configure Docker-Compose as our Remote SDK
+In RubyMine, go to `prefernces > languages & frameworks > ruby sdk & gems`, and add our docker-compose file as the source for a new remote interpreter:
+
+![Image showing RubyMine SDK Options with "Remote Interpreter or Version Manager" selected](images/adding_sdk_01.jpg?raw=true "SDK Options")
+
+![Image showing the Docker Compose Remote SDK configuration](images/adding_sdk_02.jpg "Docker Compose Remote SDK")
+
+![Image showing RubyMineSDK Options with the newly added Remote Interpreter selected](images/adding_sdk_03.jpg)
+
+Once the Remote SDK has been configured, you should notice that a `app/Gemfile.lock` file was generated.  This is thanks to the `RUN bundle install` specified in our `app/Dockerfile`, and because we've mounted `app/` as a volume within our container using Docker Compose.
+
+
+
