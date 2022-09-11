@@ -1,21 +1,29 @@
 # Developing with Docker and RubyMine
 
-The purpose of this project is to demonstrate how to develop with Docker and RubyMine. Some goals:
+The purpose of this project is to provide an introduction to developing using Docker and RubyMine.  In this tutorial we will:
 
-* We must not install ruby on the host machine
-* We must be able to debug and test the app using the IDE (RubyMine)
-* It must be simple for other developers to spin up their own dev environments
+* Create a container for a "Hello, world." Ruby app
+* Configure that container as a remote SDK in RubyMine
+* Run and Debug the app within the container
+* Update/Install gems in the remote SDK
+
+**Why?** Using containers for development **saves time**.  Containers can:
+
+* Reduce the time-to-first-commit for new project contributors by allowing them to bypass a major portion of environment setup
+* Eliminate entire classes of issues by providing consistency across environments
+* Allow engineers to quickly experiment with new platforms/technologies without jeopardizing their development environment
 
 
-Some pre-requisites:
+Some prerequisites:
+* Working knowledge of Ruby and RubyMine :thumbsup:
+* Cursory knowledge of Docker and containers :ok_hand:
+* [RubyMine](https://www.jetbrains.com/ruby/) _(tested with 2022.2.1)_
+* [Docker](https://www.docker.com/) _(tested with 20.10.16)_
 
-* RubyMine _(I tested with 2022.2.1)_
-* Docker _(I tested with 20.10.16)_
 
+## [Prepping our app](https://github.com/reyesml/docker-rubymine-demo/commit/6cc7b90978b020477b920119111b317b204988d4)
 
-## Prepping our app
-
-Let's start off by creating the following files in the project's `app/` directory:
+Start by creating a new, empty project in RubyMine.  Next, create an `app/` directory in the project root, and the following files:
 
 `app/hello_world.rb`:
 ```ruby
@@ -53,7 +61,7 @@ RUN bundle install
 CMD ["ruby", "hello_world.rb"]
 ```
 
-Next, let's set up a docker-compose file.  This allows us to automatically build a docker image from the `app/Dockerfile`, and mount our `app/` directory as a volume in the container.
+Next, let's set up a docker-compose file in our project root.  The docker-compose file will instruct docker to build an image from the `app/Dockerfile`, and mount our `app/` directory as a [volume](https://docs.docker.com/storage/volumes/) in the container.
 
 `docker-compose.yml`:
 ```
@@ -66,7 +74,7 @@ services:
 ```
 
 
-## Configure Docker-Compose as our Remote SDK
+## [Configure Docker-Compose as our Remote SDK](https://github.com/reyesml/docker-rubymine-demo/commit/8f1f34bdd388562c1b71ebd1ef286c25fef841ac)
 In RubyMine, go to `prefernces > languages & frameworks > ruby sdk & gems`, and add our docker-compose file as the source for a new remote interpreter:
 
 ![Image showing RubyMine SDK Options with "Remote Interpreter or Version Manager" selected](images/adding_sdk_01.jpg?raw=true "SDK Options")
@@ -75,21 +83,17 @@ In RubyMine, go to `prefernces > languages & frameworks > ruby sdk & gems`, and 
 
 ![Image showing RubyMineSDK Options with the newly added Remote Interpreter selected](images/adding_sdk_03.jpg)
 
-Once the Remote SDK has been configured, you should notice that a `app/Gemfile.lock` file was generated.  This is thanks to the `RUN bundle install` specified in our `app/Dockerfile`, and because we've mounted `app/` as a volume within our container using Docker Compose.
+Once the Remote SDK has been configured, you should notice that a `app/Gemfile.lock` file was generated.  This is due to the `RUN bundle install` specified in our `app/Dockerfile`, and because we've mounted `app/` as a volume within our container using Docker Compose.
 
 
 
-
-
-
-## Running and Debugging the App
+## [Running and Debugging the App](https://github.com/reyesml/docker-rubymine-demo/commit/19f8d746e46cb28d1b36d75f01685ef891f68995)
 
 Now that we've configured docker-compose as our remote SDK, we should be able to run our app from the IDE.  Open the `app/hello_world.rb` file in the RubyMine editor.  Right-click anywhere in that file, and select "run":
 
 ![Image showing hello_world.rb open with the "run" dialog option selected](images/running_app_01.jpg)
 
 You should receive output similar to the screenshot below.
-
 
 ![Image with the following text: "Hello, world. <br> 2022-09-10T23:48:26+00:00 <br> 2.7.6](images/running_app_02.jpg)
 
@@ -100,7 +104,8 @@ You should also be able to set a breakpoint and debug your app using the Remote 
 ![Image demonstrating RubyMine debugging hello_world.rb within a docker container](images/debugging_app_01.jpg)
 
 
-## Adding Tests
+
+## [Adding Tests](https://github.com/reyesml/docker-rubymine-demo/commit/65ba4844b0355220a0db607140a5247adbe5ff98)
 
 Let's setup [rspec](https://rspec.info/) to our project.  First, we need to add `gem 'rspec'` to our `app/Gemfile` :
 
@@ -150,4 +155,9 @@ If you open `app/rspec/hello_world_spec.rb` in rubymine, you should be able to r
 
 Notice again how the ruby version matches the version specified in our Dockerfile.
 
+
+
+## Woo Hoo!
+
+If you made it this far, congratulations! I hope you found this a helpful introduction to developing with Docker and RubyMine.  If you notice any areas of this guide that could use some love, PR's are always welcome :heart:
 
