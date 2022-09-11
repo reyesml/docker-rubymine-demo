@@ -4,7 +4,21 @@ GEM
     debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.16)
+    diff-lcs (1.5.0)
     rake (13.0.6)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.11.0)
+    rspec-support (3.11.0)
     ruby-debug-ide (0.7.3)
       rake (>= 0.8.1)
 
@@ -13,6 +27,7 @@ PLATFORMS
 
 DEPENDENCIES
   debase
+  rspec
   ruby-debug-ide
 
 RUBY VERSION
