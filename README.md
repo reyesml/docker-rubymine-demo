@@ -64,7 +64,7 @@ CMD ["ruby", "hello_world.rb"]
 Next, let's set up a docker-compose file in our project root.  The docker-compose file will instruct docker to build an image from the `app/Dockerfile`, and mount our `app/` directory as a [volume](https://docs.docker.com/storage/volumes/) in the container.
 
 `docker-compose.yml`:
-```
+```yml
 version: "3.9"
 services:
   app:
@@ -107,7 +107,7 @@ You should also be able to set a breakpoint and debug your app using the Remote 
 
 ## [Adding Tests](https://github.com/reyesml/docker-rubymine-demo/commit/65ba4844b0355220a0db607140a5247adbe5ff98)
 
-Let's setup [rspec](https://rspec.info/) to our project.  First, we need to add `gem 'rspec'` to our `app/Gemfile` :
+Let's setup [rspec](https://rspec.info/) in our project.  First, we need to add `gem 'rspec'` to our `app/Gemfile` :
 
 ```ruby
 source "https://rubygems.org"
