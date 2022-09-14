@@ -103,7 +103,12 @@ You should also be able to set a breakpoint and debug your app using the Remote 
 
 ![Image demonstrating RubyMine debugging hello_world.rb within a docker container](images/debugging_app_01.jpg)
 
-
+<details>
+  <summary>Debugger having issues? Click Here</summary>
+  
+  ### Alternative Debugging
+  After writing this demo, I've found that my debugger is flaky and doesn't always connect.  If you are experiencing similar issues, I'd recommend you give [Pry](https://github.com/pry/pry) a shot.
+ </details>
 
 ## [Adding Tests](https://github.com/reyesml/docker-rubymine-demo/commit/65ba4844b0355220a0db607140a5247adbe5ff98)
 
